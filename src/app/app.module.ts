@@ -1,16 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID} from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from './containers/app/app.component';
+import { ExpenseFormComponent } from './components/expense-form/expense-form.component';
+import { ExpensesListComponent } from './components/expenses-list/expenses-list.component';
+import { ExpenseDisplayComponent } from './components/expense-display/expense-display.component';
+import { HeaderComponent } from './components/header/header.component';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
 
-import { AppComponent } from './app.component';
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ExpenseFormComponent,
+    ExpensesListComponent,
+    ExpenseDisplayComponent,
+    HeaderComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: LOCALE_ID,
+    useValue: 'es'
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

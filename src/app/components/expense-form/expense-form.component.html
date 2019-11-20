@@ -1,0 +1,21 @@
+<div class="expense-form">
+    <form [formGroup]="form" (ngSubmit)="onSave()">
+        <div class="inputs">
+            <label for="fecha">Fecha</label>
+            <input formControlName="fecha" type="date">
+        </div>
+        <div class="inputs">
+            <label for="concepto">Concepto</label>
+            <input formControlName="concepto" type="string">
+        </div>
+        <div class="inputs">
+            <label for="importe">Importe</label>
+            <input formControlName="importe" type="number">
+        </div>
+        <div class="actions">
+            <button type="submit" >Guardar</button>
+            <button (click)="onCancel()" type="button">Cancelar</button>
+        </div>
+    </form>
+</div>
+

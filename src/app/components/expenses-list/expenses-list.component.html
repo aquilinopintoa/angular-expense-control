@@ -1,0 +1,2 @@
+<span *ngIf="!hasExpenses">No hay gastos</span>
+<app-expense-display *ngFor="let expense of expenses" [expense]="expense"></app-expense-display>

@@ -1,0 +1,11 @@
+.expense {
+    display: flex;
+    justify-content: space-between;
+
+    .concepto {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0px 16px;
+    }
+}
