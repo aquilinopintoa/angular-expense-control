@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { Expense } from '../../interfaces/expense';
+import { ExpenseDTOInterface } from '../../models/expense/expense.interface';
 
 @Component({
   selector: 'app-expense-form',
@@ -12,7 +12,7 @@ import { Expense } from '../../interfaces/expense';
 })
 export class ExpenseFormComponent implements OnInit {
 
-  @Output() public save = new EventEmitter<Expense>();
+  @Output() public save = new EventEmitter<ExpenseDTOInterface>();
   @Output() public cancel = new EventEmitter();
 
   public form: FormGroup;
@@ -20,7 +20,7 @@ export class ExpenseFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.initForm();
+    this.buildForm();
   }
 
   public onCancel(): void {
@@ -28,14 +28,38 @@ export class ExpenseFormComponent implements OnInit {
   }
 
   public onSave(): void {
-    this.save.emit(this.form.value);
+    const dtoExpense = this.getExpenseDTO(this.form.value);
+    this.save.emit(dtoExpense);
   }
 
-  private initForm(): void {
+  public buildForm(): void {
     this.form = new FormGroup({
-      importe: new FormControl(null, Validators.required),
+      importe: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^\d+.?\d?$/)
+      ]),
       concepto: new FormControl(null, Validators.required),
       fecha: new FormControl(null),
     });
+  }
+
+  public getExpenseDTO(formValue: ExpenseDTOInterface): ExpenseDTOInterface {
+    const DATE_FORMAT = 'YYYY-MM-DD';
+    const fecha = formValue.fecha || moment().format(DATE_FORMAT);
+
+    const dtoExpense: ExpenseDTOInterface = {
+      ...this.form.value,
+      fecha: moment(fecha, DATE_FORMAT).format()
+    };
+
+    return dtoExpense;
+  }
+
+  get conceptoField() {
+    return this.form.get('concepto');
+  }
+
+  get importeField() {
+    return this.form.get('importe');
   }
 }

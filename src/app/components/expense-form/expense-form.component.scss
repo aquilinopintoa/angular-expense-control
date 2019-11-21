@@ -1,13 +1,24 @@
 .expense-form {
     .inputs {
         padding: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
 
         label {
             padding-right: 8px;
+            font-size: 18px;
         }
     
         input {
             margin: 4px;
+        }
+
+        .errors {
+            color: red;
+            width: 100%;
+            padding-left: 16px;
+            font-size: 14px;
         }
     }
 

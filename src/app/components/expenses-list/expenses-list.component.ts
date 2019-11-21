@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { Expense } from '../../interfaces/expense';
+import { ExpenseInterface } from '../../models/expense/expense.interface';
 
 @Component({
   selector: 'app-expenses-list',
@@ -8,7 +8,7 @@ import { Expense } from '../../interfaces/expense';
   styleUrls: ['./expenses-list.component.scss']
 })
 export class ExpensesListComponent implements OnInit, OnChanges {
-  @Input() public expenses: Expense[];
+  @Input() public expenses: ExpenseInterface[];
 
   public hasExpenses = false;
 
@@ -21,7 +21,7 @@ export class ExpensesListComponent implements OnInit, OnChanges {
     this.updateHasExpenses();
   }
 
-  private updateHasExpenses(): void {
+  public updateHasExpenses(): void {
     this.hasExpenses = !!this.expenses.length;
   }
 

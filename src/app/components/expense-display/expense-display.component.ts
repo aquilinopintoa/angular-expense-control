@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Expense } from 'src/app/interfaces/expense';
+import { ExpenseInterface } from 'src/app/models/expense/expense.interface';
 
 @Component({
   selector: 'app-expense-display',
@@ -8,7 +8,7 @@ import { Expense } from 'src/app/interfaces/expense';
 })
 export class ExpenseDisplayComponent implements OnInit {
 
-  @Input() public expense: Expense;
+  @Input() public expense: ExpenseInterface;
 
   constructor() { }
 

@@ -7,13 +7,28 @@
         <div class="inputs">
             <label for="concepto">Concepto</label>
             <input formControlName="concepto" type="string">
+            <span 
+                class="errors"
+                *ngIf="form.get('concepto').errors && form.get('concepto').dirty">
+                * Este campo es obligatorio
+            </span>
         </div>
         <div class="inputs">
             <label for="importe">Importe</label>
             <input formControlName="importe" type="number">
+            <span 
+                class="errors"
+                *ngIf="importeField.errors && importeField.dirty && importeField.hasError('required')">
+                * Este campo es obligatorio
+            </span>
+            <span 
+                class="errors"
+                *ngIf="importeField.errors && importeField.dirty && importeField.hasError('pattern')">
+                * El valor no es valido (solo numeros)
+            </span>
         </div>
         <div class="actions">
-            <button type="submit" >Guardar</button>
+            <button type="submit" [disabled]="form.invalid">Guardar</button>
             <button (click)="onCancel()" type="button">Cancelar</button>
         </div>
     </form>
