@@ -36,7 +36,7 @@ export class ExpenseFormComponent implements OnInit {
     this.form = new FormGroup({
       importe: new FormControl(null, [
         Validators.required,
-        Validators.pattern(/^\d+.?\d?$/)
+        Validators.pattern(/^\d+.?\d*$/)
       ]),
       concepto: new FormControl(null, Validators.required),
       fecha: new FormControl(null),

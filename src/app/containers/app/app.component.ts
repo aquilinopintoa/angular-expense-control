@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ExpenseInterface, ExpenseDTOInterface } from '../../models/expense/expense.interface';
-import { Expense } from 'src/app/models/expense/expense';
 import { ExpenseService } from 'src/app/services/expense/expense.service';
 
 @Component({
@@ -21,7 +20,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fecthExpenses();
+    this.refresh();
   }
   /**
    * openExpenseForm
@@ -42,13 +41,13 @@ export class AppComponent implements OnInit {
    */
   public addExpense(dtoExpense: ExpenseDTOInterface): void {
     this.expenseService.create(dtoExpense);
-    this.fecthExpenses();
+    this.refresh();
   }
 
   /**
    * fecthExpenses
    */
-  public fecthExpenses() {
-    this.expenses = this.expenseService.getAll();
+  public refresh() {
+    this.expenses = this.expenseService.getAllSortedByDate();
   }
 }

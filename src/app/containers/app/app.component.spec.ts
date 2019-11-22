@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { ExpenseFormComponent } from 'src/app/components/expense-form/expense-form.component';
 import { ExpensesListComponent } from 'src/app/components/expenses-list/expenses-list.component';
@@ -6,9 +6,24 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { ExpenseDisplayComponent } from 'src/app/components/expense-display/expense-display.component';
 import { ExpenseService } from 'src/app/services/expense/expense.service';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { By } from '@angular/platform-browser';
+import { Injectable } from '@angular/core';
+import { MockExpenseDTO, MockExpense } from 'src/app/models/expense/expense.mock';
+
+@Injectable()
+export class MockExpenseService {
+    getAll() { return []; }
+    getAllSortedByDate() { return []; }
+    create() { }
+}
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let expenseService: ExpenseService;
   const formBuilder: FormBuilder = new FormBuilder();
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -23,14 +38,64 @@ describe('AppComponent', () => {
       ],
       providers: [
         { provide: FormBuilder, useValue: formBuilder },
-        ExpenseService
+        { provide: ExpenseService, useClass: MockExpenseService },
+        LocalStorageService
       ]
     }).compileComponents();
+
+    expenseService = TestBed.get(ExpenseService);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+
+    fixture.detectChanges();
   }));
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
+  });
+
+  it('openExpenseForm should set isOpenedExpenseForm prop to true', () => {
+    component.openExpenseForm();
+    expect(component.isOpenedExpenseForm).toBeTruthy();
+  });
+
+  it('openExpenseForm should show app-expense-form', () => {
+    component.openExpenseForm();
+    fixture.detectChanges();
+    const de = fixture.debugElement.query(By.css('app-expense-form'));
+    expect(de).toBeTruthy();
+  });
+
+  it('closeExpenseForm should isOpenedExpenseForm prop to false and not show app-expense-form', () => {
+    component.closeExpenseForm();
+    fixture.detectChanges();
+    const de = fixture.debugElement.query(By.css('app-expense-form'));
+    expect(de).toBeFalsy();
+    expect(component.isOpenedExpenseForm).toBeFalsy();
+  });
+
+  it('addExpense should call create from expenseService with expense data', () => {
+    spyOn(expenseService, 'create');
+
+    component.addExpense(MockExpenseDTO);
+
+    expect(expenseService.create).toHaveBeenCalled();
+    expect(expenseService.create).toHaveBeenCalledWith(MockExpenseDTO);
+  });
+
+  it('addExpense should call refresh method', () => {
+    spyOn(component, 'refresh');
+
+    component.addExpense(MockExpenseDTO);
+
+    expect(component.refresh).toHaveBeenCalled();
+  });
+
+  it('refresh should set expenses prop from expenseService', () => {
+    component.expenses = [MockExpense];
+
+    component.refresh();
+
+    expect(component.expenses.length).toEqual(0);
   });
 });

@@ -1,26 +1,78 @@
-// import { TestBed } from '@angular/core/testing';
 
-// import { ExpenseService } from './expense.service';
-// import { LocalStorageService } from '../local-storage/local-storage.service';
-// import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
-// @Injectable()
-// export class MockLocalStorageService {
-// }
+import { TestBed } from '@angular/core/testing';
+
+import { ExpenseService, APP_LABEL } from './expense.service';
+import { LocalStorageService } from '../local-storage/local-storage.service';
+import { Injectable } from '@angular/core';
+import { MockExpense, MockExpenseDTO } from 'src/app/models/expense/expense.mock';
+
+@Injectable()
+export class MockLocalStorageService {
+    get() { }
+    set() { }
+}
 
 
-// describe('ExpenseService', () => {
-//   let expenseService: ExpenseService;
-//   let api: EntityApiService;
+describe('ExpenseService', () => {
+  let expenseService: ExpenseService;
+  let localStorageService: LocalStorageService;
 
-//   beforeEach(async () => TestBed.configureTestingModule({
-//     providers: [
-//       { provide: LocalStorageService, useClass: MockLocalStorageService },
-//     ]
-//   }));
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      providers: [
+        ExpenseService,
+        { provide: LocalStorageService, useClass: MockLocalStorageService },
+      ]
+    });
 
-//   it('should be created', () => {
-//     const service: ExpenseService = TestBed.get(ExpenseService);
-//     expect(service).toBeTruthy();
-//   });
-// });
+
+    expenseService = TestBed.get(ExpenseService);
+    localStorageService = TestBed.get(LocalStorageService);
+  } );
+
+  it('should be created and have default state', () => {
+    expect(expenseService).toBeTruthy();
+    expect(expenseService.expenses.length).toEqual(0);
+    expect(expenseService.expensesCounter).toEqual(0);
+  });
+
+  it('getAll should return all expenses stored', () => {
+    expenseService.expenses = [MockExpense];
+    const result = expenseService.getAll();
+    expect(result.length).toEqual(1);
+    expect(result[0].id).toEqual(MockExpense.id);
+  });
+
+  it('getAllSortedByDate should return all expenses stored ordered by date from most recent', () => {
+    const now = moment().format();
+    const yesterday = moment().subtract(1, 'days').format();
+    const mockExpenses = [
+      { ...MockExpense, id: 1, fecha: yesterday },
+      { ...MockExpense, id: 2, fecha: now },
+    ];
+
+    expenseService.expenses = mockExpenses;
+    const result = expenseService.getAllSortedByDate();
+    expect(result[0].id).toEqual(2);
+  });
+
+  it('create should create an expense and add it to the state.', () => {
+    expenseService.create(MockExpenseDTO);
+    expect(expenseService.expenses.length).toEqual(1);
+    expect(expenseService.expensesCounter).toEqual(1);
+  });
+
+  it('saveState should call localStorageService.set with current expenseService state', () => {
+    spyOn(localStorageService, 'set');
+
+    expenseService.saveState();
+
+    expect(localStorageService.set).toHaveBeenCalled();
+    expect(localStorageService.set).toHaveBeenCalledWith(APP_LABEL, {
+      expenses: expenseService.expenses,
+      expensesCounter: expenseService.expensesCounter
+    });
+  });
+});
