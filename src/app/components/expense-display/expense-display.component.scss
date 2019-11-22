@@ -1,8 +1,9 @@
 .expense {
     display: flex;
     justify-content: space-between;
+    padding: 4px 0px;
 
-    .concepto {
+    .description {
         width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;

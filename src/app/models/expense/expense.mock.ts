@@ -6,9 +6,9 @@ import { Expense } from './expense';
 const now = moment();
 
 export const MockExpenseDTO: ExpenseDTOInterface = {
-    concepto: 'mock',
-    importe: 10.5,
-    fecha: now.format()
+    description: 'mock',
+    amount: 10.5,
+    date: now.format()
 };
 
 export const MockExpense: ExpenseInterface = new Expense({

@@ -34,32 +34,32 @@ export class ExpenseFormComponent implements OnInit {
 
   public buildForm(): void {
     this.form = new FormGroup({
-      importe: new FormControl(null, [
+      amount: new FormControl(null, [
         Validators.required,
         Validators.pattern(/^\d+.?\d*$/)
       ]),
-      concepto: new FormControl(null, Validators.required),
-      fecha: new FormControl(null),
+      description: new FormControl(null, Validators.required),
+      date: new FormControl(null),
     });
   }
 
   public getExpenseDTO(formValue: ExpenseDTOInterface): ExpenseDTOInterface {
     const DATE_FORMAT = 'YYYY-MM-DD';
-    const fecha = formValue.fecha || moment().format(DATE_FORMAT);
+    const date = formValue.date || moment().format(DATE_FORMAT);
 
     const dtoExpense: ExpenseDTOInterface = {
       ...this.form.value,
-      fecha: moment(fecha, DATE_FORMAT).format()
+      date: moment(date, DATE_FORMAT).format()
     };
 
     return dtoExpense;
   }
 
-  get conceptoField() {
-    return this.form.get('concepto');
+  get descriptionField() {
+    return this.form.get('description');
   }
 
-  get importeField() {
-    return this.form.get('importe');
+  get amountField() {
+    return this.form.get('amount');
   }
 }

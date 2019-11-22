@@ -1,0 +1,78 @@
+[debug] [2019-11-22T14:29:19.950Z] ----------------------------------------------------------------------
+[debug] [2019-11-22T14:29:19.965Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2019-11-22T14:29:19.965Z] CLI Version:   7.8.0
+[debug] [2019-11-22T14:29:19.965Z] Platform:      linux
+[debug] [2019-11-22T14:29:19.965Z] Node Version:  v10.16.3
+[debug] [2019-11-22T14:29:19.966Z] Time:          Fri Nov 22 2019 15:29:19 GMT+0100 (GMT+01:00)
+[debug] [2019-11-22T14:29:19.966Z] ----------------------------------------------------------------------
+[debug] [2019-11-22T14:29:19.966Z] 
+[debug] [2019-11-22T14:29:20.012Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-22T14:29:20.013Z] > authorizing via signed-in user
+[debug] [2019-11-22T14:29:20.014Z] [iam] checking project angular-expense-control for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-11-22T14:29:20.019Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-11-22T14:29:20.020Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-11-22T14:29:20.331Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-22T14:29:20.357Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/angular-expense-control:testIamPermissions  
+
+[debug] [2019-11-22T14:29:21.283Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-22T14:29:21.288Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/angular-expense-control  
+ 
+[debug] [2019-11-22T14:29:21.696Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'angular-expense-control'...
+[info] 
+[info] i  deploying hosting
+[debug] [2019-11-22T14:29:21.703Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/angular-expense-control/versions  
+
+[debug] [2019-11-22T14:29:23.490Z] <<< HTTP RESPONSE 200
+[info] i  hosting[angular-expense-control]: beginning deploy...
+[info] i  hosting[angular-expense-control]: found 10 files in dist/angular-expense-control
+[debug] [2019-11-22T14:29:23.717Z] [hosting] hash cache [ZGlzdC9hbmd1bGFyLWV4cGVuc2UtY29udHJvbA] stored for 10 files
+[debug] [2019-11-22T14:29:23.717Z] [hosting][hash queue][FINAL]
+[debug] [2019-11-22T14:29:23.717Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/angular-expense-control/versions/22c5ed3497755bf7:populateFiles  
+ <request body omitted>
+[debug] [2019-11-22T14:29:24.998Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-22T14:29:25.022Z] [hosting][populate queue][FINAL]
+[debug] [2019-11-22T14:29:25.022Z] [hosting] uploads queued: 8
+[debug] [2019-11-22T14:29:28.170Z] [hosting][upload queue][FINAL]
+[info] ✔  hosting[angular-expense-control]: file upload complete
+[debug] [2019-11-22T14:29:28.174Z] [hosting] deploy completed after 4682ms
+[debug] [2019-11-22T14:29:28.402Z] [
+  {
+    "config": {
+      "public": "dist/angular-expense-control",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "angular-expense-control"
+    },
+    "site": "angular-expense-control",
+    "version": "sites/angular-expense-control/versions/22c5ed3497755bf7"
+  }
+]
+[info] i  hosting[angular-expense-control]: finalizing version...
+[debug] [2019-11-22T14:29:28.405Z] >>> HTTP REQUEST PATCH https://firebasehosting.googleapis.com/v1beta1/sites/angular-expense-control/versions/22c5ed3497755bf7?updateMask=status  
+
+[debug] [2019-11-22T14:29:29.481Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-22T14:29:29.483Z] [hosting] finalized version for angular-expense-control:
+[info] ✔  hosting[angular-expense-control]: version finalized
+[info] i  hosting[angular-expense-control]: releasing new version...
+[debug] [2019-11-22T14:29:29.486Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/angular-expense-control/releases?version_name=sites/angular-expense-control/versions/22c5ed3497755bf7  
+
+[debug] [2019-11-22T14:29:30.672Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-22T14:29:30.674Z] [hosting] release:
+[info] ✔  hosting[angular-expense-control]: release complete
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/angular-expense-control/overview
+[info] Hosting URL: https://angular-expense-control.firebaseapp.com

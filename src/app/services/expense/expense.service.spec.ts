@@ -49,8 +49,8 @@ describe('ExpenseService', () => {
     const now = moment().format();
     const yesterday = moment().subtract(1, 'days').format();
     const mockExpenses = [
-      { ...MockExpense, id: 1, fecha: yesterday },
-      { ...MockExpense, id: 2, fecha: now },
+      { ...MockExpense, id: 1, date: yesterday },
+      { ...MockExpense, id: 2, date: now },
     ];
 
     expenseService.expenses = mockExpenses;

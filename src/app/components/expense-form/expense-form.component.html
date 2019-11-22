@@ -1,29 +1,29 @@
 <div class="expense-form">
     <form [formGroup]="form" (ngSubmit)="onSave()">
         <div class="inputs">
-            <label for="fecha">Fecha</label>
-            <input formControlName="fecha" type="date">
+            <label for="date">Fecha</label>
+            <input formControlName="date" type="date">
         </div>
         <div class="inputs">
-            <label for="concepto">Concepto</label>
-            <input formControlName="concepto" type="string">
+            <label for="description">Concepto</label>
+            <input formControlName="description" type="string">
             <span 
                 class="errors"
-                *ngIf="form.get('concepto').errors && form.get('concepto').dirty">
+                *ngIf="form.get('description').errors && form.get('description').dirty">
                 * Este campo es obligatorio
             </span>
         </div>
         <div class="inputs">
-            <label for="importe">Importe</label>
-            <input formControlName="importe" type="number">
+            <label for="amount">Importe</label>
+            <input formControlName="amount" type="number">
             <span 
                 class="errors"
-                *ngIf="importeField.errors && importeField.dirty && importeField.hasError('required')">
+                *ngIf="amountField.errors && amountField.dirty && amountField.hasError('required')">
                 * Este campo es obligatorio
             </span>
             <span 
                 class="errors"
-                *ngIf="importeField.errors && importeField.dirty && importeField.hasError('pattern')">
+                *ngIf="amountField.errors && amountField.dirty && amountField.hasError('pattern')">
                 * El valor no es valido (solo numeros)
             </span>
         </div>

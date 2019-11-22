@@ -52,26 +52,26 @@ describe('ExpenseDisplayComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show "fecha" attribute with "dd/MM" format', () => {
+  it('should show "date" attribute with "dd/MM" format', () => {
     const de = fixture.debugElement.query(By.css('.expense > :first-child'));
     const element = de.nativeElement;
-    expect(element.textContent).toEqual(moment(MockExpense.fecha).format('DD/MM'));
+    expect(element.textContent).toEqual(moment(MockExpense.date).format('DD/MM'));
   });
 
 
-  it('should show "concepto" attribute', () => {
-    const de = fixture.debugElement.query(By.css('.expense > .concepto'));
+  it('should show "description" attribute', () => {
+    const de = fixture.debugElement.query(By.css('.expense > .description'));
     const element = de.nativeElement;
-    expect(element.textContent).toEqual(MockExpense.concepto);
+    expect(element.textContent).toEqual(MockExpense.description);
   });
 
-  it('should show "importe" attribute with EUR-es currency', () => {
+  it('should show "amount" attribute with EUR-es currency', () => {
     // TODO :: must be improved
     const de = fixture.debugElement.query(By.css('.expense > :last-child'));
     const element = de.nativeElement;
-    const formattedMockImporte = numeral(MockExpense.importe).format('0,0.0');
+    const formattedMockAmount = numeral(MockExpense.amount).format('0,0.0');
 
-    expect(element.textContent).toContain(formattedMockImporte);
+    expect(element.textContent).toContain(formattedMockAmount);
     expect(element.textContent).toContain('€');
   });
 });

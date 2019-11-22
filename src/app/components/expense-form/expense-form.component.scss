@@ -8,6 +8,7 @@
         label {
             padding-right: 8px;
             font-size: 18px;
+            min-width: 76px;
         }
     
         input {
@@ -25,7 +26,7 @@
     .actions {
         display: flex;
         justify-content: flex-end;
-
+        margin-top: 12px;
         button {
             margin-left: 8px;
         }

@@ -32,7 +32,7 @@ export class ExpenseService {
 
   public getAllSortedByDate(): Expense[] {
     const expenses = this.getAll();
-    return orderBy(expenses, ['fecha'], ['desc']);
+    return orderBy(expenses, ['date'], ['desc']);
   }
 
   public create(dtoExpense: ExpenseDTOInterface): void {

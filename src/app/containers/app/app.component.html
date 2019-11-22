@@ -10,7 +10,7 @@
     <button (click)="openExpenseForm()" >Nuevo gasto</button>
 </div>
 
-<div *ngIf="isOpenedExpenseForm" class="mt-3">
+<div *ngIf="isOpenedExpenseForm" class="mt-3 app-expense-form">
     <app-expense-form
         (save)="addExpense($event)"
         (cancel)="closeExpenseForm()">

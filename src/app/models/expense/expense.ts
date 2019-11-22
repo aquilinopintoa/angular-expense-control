@@ -3,14 +3,14 @@ import { ExpenseInterface } from './expense.interface';
 
 export class Expense implements ExpenseInterface {
     public id: number;
-    public concepto: string;
-    public fecha: string;
-    public importe: number;
+    public description: string;
+    public date: string;
+    public amount: number;
 
     constructor(expense: ExpenseInterface) {
         this.id = expense.id;
-        this.concepto = expense.concepto;
-        this.importe = expense.importe;
-        this.fecha = expense.fecha;
+        this.description = expense.description;
+        this.amount = expense.amount;
+        this.date = expense.date;
     }
 }

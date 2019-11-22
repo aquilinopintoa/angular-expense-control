@@ -30,9 +30,9 @@ describe('ExpenseFormComponent', () => {
     component = fixture.componentInstance;
 
     component.form = formBuilder.group({
-      concepto: null,
-      importe: null,
-      fecha: null
+      description: null,
+      amount: null,
+      date: null
     });
 
     fixture.detectChanges();
@@ -47,16 +47,16 @@ describe('ExpenseFormComponent', () => {
     expect(component.form).toBeDefined();
   });
 
-  it('getExpenseDTO should return ExpenseDTO with "fecha" field defined', () => {
+  it('getExpenseDTO should return ExpenseDTO with "date" field defined', () => {
     component.form.setValue({
-      concepto: 'test',
-      importe: 10,
-      fecha: null
+      description: 'test',
+      amount: 10,
+      date: null
     });
 
     const expenseDTO = component.getExpenseDTO(MockExpenseDTO);
 
-    expect(expenseDTO.fecha).toBeDefined();
+    expect(expenseDTO.date).toBeDefined();
   });
 
   it('onCancel should call cancel.emit', () => {
@@ -75,34 +75,34 @@ describe('ExpenseFormComponent', () => {
     expect(component.save.emit).toHaveBeenCalled();
   });
 
-  it('should show invalid message to required validation with concepto equal to null', () => {
+  it('should show invalid message to required validation with description equal to null', () => {
     component.form.setValue({
-      concepto: null,
-      importe: 10,
-      fecha: null
+      description: null,
+      amount: 10,
+      date: null
     });
 
-    expect(component.form.get('concepto').hasError('required')).toBe(true);
+    expect(component.form.get('description').hasError('required')).toBe(true);
   });
 
-  it('should show invalid message to pattern validation with importe value is not a number', () => {
+  it('should show invalid message to pattern validation with amount value is not a number', () => {
     component.form.setValue({
-      concepto: 'test',
-      importe: 'test',
-      fecha: null
+      description: 'test',
+      amount: 'test',
+      date: null
     });
 
-    expect(component.form.get('importe').hasError('pattern')).toBe(true);
+    expect(component.form.get('amount').hasError('pattern')).toBe(true);
   });
 
-  it('should show invalid message to pattern validation with importe value is not a number', () => {
+  it('should show invalid message to pattern validation with amount value is not a number', () => {
     component.form.setValue({
-      concepto: 'test',
-      importe: 'test',
-      fecha: null
+      description: 'test',
+      amount: 'test',
+      date: null
     });
 
-    component.form.get('importe').markAsDirty();
+    component.form.get('amount').markAsDirty();
 
     fixture.detectChanges();
 
