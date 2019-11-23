@@ -5,7 +5,7 @@ export class LocalStorageService {
 
   constructor() { }
 
-  public get(label: string): any {
+  public get<T>(label: string): T {
     const valueString = localStorage.getItem(label);
 
     if (!valueString) {
@@ -15,7 +15,7 @@ export class LocalStorageService {
     }
   }
 
-  public set(label: string, value: any): void {
+  public set<T>(label: string, value: T): void {
     const valueString = JSON.stringify(value);
     localStorage.setItem(label, valueString);
   }
