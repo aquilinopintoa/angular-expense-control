@@ -41,7 +41,7 @@ describe('LocalStorageService', () => {
     spyOn(localStorage, 'getItem')
       .and.callFake(mockLocalStorage.getItem.bind(mockLocalStorage));
 
-    const result = localStorageService.get(APP_LABEL);
+    const result = localStorageService.get<null>(APP_LABEL);
 
     expect(result).toBeNull();
   });
@@ -56,7 +56,7 @@ describe('LocalStorageService', () => {
     spyOn(localStorage, 'getItem')
       .and.callFake(mockLocalStorage.getItem.bind(mockStore));
 
-    const result = localStorageService.get(mockLabel);
+    const result = localStorageService.get<number>(mockLabel);
 
     expect(result).toEqual(1);
   });
@@ -68,7 +68,7 @@ describe('LocalStorageService', () => {
     spyOn(localStorage, 'setItem')
       .and.callFake(mockLocalStorage.setItem.bind(mockLocalStorage));
 
-    localStorageService.set(mockLabel, 1);
+    localStorageService.set<number>(mockLabel, 1);
 
     expect(mockLocalStorage.store.test).toEqual('1');
   });
