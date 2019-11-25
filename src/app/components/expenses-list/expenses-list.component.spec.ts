@@ -52,19 +52,23 @@ describe('ExpensesListComponent', () => {
     expect(de.length).toEqual(2);
   });
 
-  it('updateHasExpenses should update hasExpenses prop from expenses prop', () => {
-    component.expenses = expensesMock;
+  describe('updateHasExpenses', () => {
+    it('should update hasExpenses prop from expenses prop', () => {
+      component.expenses = expensesMock;
 
-    component.updateHasExpenses();
+      component.updateHasExpenses();
 
-    expect(component.hasExpenses).toEqual(true);
+      expect(component.hasExpenses).toEqual(true);
+    });
   });
 
-  it('ngOnChange should call updateHasExpenses', () => {
-    spyOn(component, 'updateHasExpenses');
+  describe('ngOnChange', () => {
+    it(' should call updateHasExpenses', () => {
+      spyOn(component, 'updateHasExpenses');
 
-    component.ngOnChanges({});
+      component.ngOnChanges({});
 
-    expect(component.updateHasExpenses).toHaveBeenCalled();
+      expect(component.updateHasExpenses).toHaveBeenCalled();
+    });
   });
 });
