@@ -1,5 +1,6 @@
 {
-  "hosting": {
+  "hosting": [{
+    "target": "angular-expense-control",
     "public": "dist/angular-expense-control",
     "ignore": [
       "firebase.json",
@@ -12,5 +13,5 @@
         "destination": "/index.html"
       }
     ]
-  }
+  }]
 }
