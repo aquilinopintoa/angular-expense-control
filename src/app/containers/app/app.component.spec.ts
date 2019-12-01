@@ -54,48 +54,57 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('openExpenseForm should set isOpenedExpenseForm prop to true', () => {
-    component.openExpenseForm();
-    expect(component.isOpenedExpenseForm).toBeTruthy();
+  describe('openExpenseForm', () => {
+    it('should set isOpenedExpenseForm prop to true', () => {
+      component.openExpenseForm();
+      expect(component.isOpenedExpenseForm).toBeTruthy();
+    });
+
+    it('should show app-expense-form', () => {
+      component.openExpenseForm();
+      fixture.detectChanges();
+      const de = fixture.debugElement.query(By.css('app-expense-form'));
+      expect(de).toBeTruthy();
+    });
   });
 
-  it('openExpenseForm should show app-expense-form', () => {
-    component.openExpenseForm();
-    fixture.detectChanges();
-    const de = fixture.debugElement.query(By.css('app-expense-form'));
-    expect(de).toBeTruthy();
+  describe('closeExpenseForm', () => {
+    it(' should isOpenedExpenseForm prop to false and not show app-expense-form', () => {
+      component.closeExpenseForm();
+      fixture.detectChanges();
+      const de = fixture.debugElement.query(By.css('app-expense-form'));
+      expect(de).toBeFalsy();
+      expect(component.isOpenedExpenseForm).toBeFalsy();
+    });
   });
 
-  it('closeExpenseForm should isOpenedExpenseForm prop to false and not show app-expense-form', () => {
-    component.closeExpenseForm();
-    fixture.detectChanges();
-    const de = fixture.debugElement.query(By.css('app-expense-form'));
-    expect(de).toBeFalsy();
-    expect(component.isOpenedExpenseForm).toBeFalsy();
+  describe('addExpense', () => {
+    it('should call create from expenseService with expense data', () => {
+      spyOn(expenseService, 'create');
+
+      component.addExpense(MockExpenseDTO);
+
+      expect(expenseService.create).toHaveBeenCalled();
+      expect(expenseService.create).toHaveBeenCalledWith(MockExpenseDTO);
+    });
+
+
+    it('should call refresh method', () => {
+      spyOn(component, 'refresh');
+
+      component.addExpense(MockExpenseDTO);
+
+      expect(component.refresh).toHaveBeenCalled();
+    });
   });
 
-  it('addExpense should call create from expenseService with expense data', () => {
-    spyOn(expenseService, 'create');
+  describe('refresh', () => {
+    it('should set expenses prop from expenseService', () => {
+      component.expenses = [MockExpense];
 
-    component.addExpense(MockExpenseDTO);
+      component.refresh();
 
-    expect(expenseService.create).toHaveBeenCalled();
-    expect(expenseService.create).toHaveBeenCalledWith(MockExpenseDTO);
-  });
-
-  it('addExpense should call refresh method', () => {
-    spyOn(component, 'refresh');
-
-    component.addExpense(MockExpenseDTO);
-
-    expect(component.refresh).toHaveBeenCalled();
-  });
-
-  it('refresh should set expenses prop from expenseService', () => {
-    component.expenses = [MockExpense];
-
-    component.refresh();
-
-    expect(component.expenses.length).toEqual(0);
+      expect(component.expenses.length).toEqual(0);
+    });
   });
 });

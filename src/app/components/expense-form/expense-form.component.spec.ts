@@ -38,41 +38,50 @@ describe('ExpenseFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('onSave should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('buildForm should create form group instance', () => {
-    component.buildForm();
-    expect(component.form).toBeDefined();
+  describe('onSave', () => {
+    it('should call save.emit', () => {
+      spyOn(component.save, 'emit');
+
+      component.onSave();
+
+      expect(component.save.emit).toHaveBeenCalled();
+    });
   });
 
-  it('getExpenseDTO should return ExpenseDTO with "date" field defined', () => {
-    component.form.setValue({
-      description: 'test',
-      amount: 10,
-      date: null
+  describe('buildForm', () => {
+    it(' should create form group instance', () => {
+      component.buildForm();
+      expect(component.form).toBeDefined();
     });
 
-    const expenseDTO = component.getExpenseDTO(MockExpenseDTO);
-
-    expect(expenseDTO.date).toBeDefined();
   });
 
-  it('onCancel should call cancel.emit', () => {
-    spyOn(component.cancel, 'emit');
+  describe('getExpenseDTO', () => {
+    it(' should return ExpenseDTO with "date" field defined', () => {
+      component.form.setValue({
+        description: 'test',
+        amount: 10,
+        date: null
+      });
 
-    component.onCancel();
+      const expenseDTO = component.getExpenseDTO(MockExpenseDTO);
 
-    expect(component.cancel.emit).toHaveBeenCalled();
+      expect(expenseDTO.date).toBeDefined();
+    });
   });
 
-  it('onSave should call save.emit', () => {
-    spyOn(component.save, 'emit');
+  describe('onCancel', () => {
+    it(' should call cancel.emit', () => {
+      spyOn(component.cancel, 'emit');
 
-    component.onSave();
+      component.onCancel();
 
-    expect(component.save.emit).toHaveBeenCalled();
+      expect(component.cancel.emit).toHaveBeenCalled();
+    });
   });
 
   it('should show invalid message to required validation with description equal to null', () => {
@@ -84,6 +93,7 @@ describe('ExpenseFormComponent', () => {
 
     expect(component.form.get('description').hasError('required')).toBe(true);
   });
+
 
   it('should show invalid message to pattern validation with amount value is not a number', () => {
     component.form.setValue({

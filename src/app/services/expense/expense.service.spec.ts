@@ -38,41 +38,49 @@ describe('ExpenseService', () => {
     expect(expenseService.expensesCounter).toEqual(0);
   });
 
-  it('getAll should return all expenses stored', () => {
-    expenseService.expenses = [MockExpense];
-    const result = expenseService.getAll();
-    expect(result.length).toEqual(1);
-    expect(result[0].id).toEqual(MockExpense.id);
-  });
-
-  it('getAllSortedByDate should return all expenses stored ordered by date from most recent', () => {
-    const now = moment().format();
-    const yesterday = moment().subtract(1, 'days').format();
-    const mockExpenses = [
-      { ...MockExpense, id: 1, date: yesterday },
-      { ...MockExpense, id: 2, date: now },
-    ];
-
-    expenseService.expenses = mockExpenses;
-    const result = expenseService.getAllSortedByDate();
-    expect(result[0].id).toEqual(2);
-  });
-
-  it('create should create an expense and add it to the state.', () => {
-    expenseService.create(MockExpenseDTO);
-    expect(expenseService.expenses.length).toEqual(1);
-    expect(expenseService.expensesCounter).toEqual(1);
-  });
-
-  it('saveState should call localStorageService.set with current expenseService state', () => {
-    spyOn(localStorageService, 'set');
-
-    expenseService.saveState();
-
-    expect(localStorageService.set).toHaveBeenCalled();
-    expect(localStorageService.set).toHaveBeenCalledWith(APP_LABEL, {
-      expenses: expenseService.expenses,
-      expensesCounter: expenseService.expensesCounter
+  describe('getAll', () => {
+    it('should return all expenses stored', () => {
+      expenseService.expenses = [MockExpense];
+      const result = expenseService.getAll();
+      expect(result.length).toEqual(1);
+      expect(result[0].id).toEqual(MockExpense.id);
     });
   });
+
+  describe('getAllSortedByDate', () => {
+    it('should return all expenses stored ordered by date from most recent', () => {
+      const now = moment().format();
+      const yesterday = moment().subtract(1, 'days').format();
+      const mockExpenses = [
+        { ...MockExpense, id: 1, date: yesterday },
+        { ...MockExpense, id: 2, date: now },
+      ];
+
+      expenseService.expenses = mockExpenses;
+      const result = expenseService.getAllSortedByDate();
+      expect(result[0].id).toEqual(2);
+    });
+  });
+
+  describe('create', () => {
+    it('should create an expense and add it to the state.', () => {
+      expenseService.create(MockExpenseDTO);
+      expect(expenseService.expenses.length).toEqual(1);
+      expect(expenseService.expensesCounter).toEqual(1);
+    });
+  });
+
+  describe('saveState', () => {
+    it('should call localStorageService.set with current expenseService state', () => {
+      spyOn(localStorageService, 'set');
+
+      expenseService.saveState();
+
+      expect(localStorageService.set).toHaveBeenCalled();
+      expect(localStorageService.set).toHaveBeenCalledWith(APP_LABEL, {
+        expenses: expenseService.expenses,
+        expensesCounter: expenseService.expensesCounter
+      });
+    });
+  })
 });

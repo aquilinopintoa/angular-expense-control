@@ -8,7 +8,9 @@
     "test": "ng test",
     "test:coverage": "ng test --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy:coverage-report": "http-server ./coverage/angular-expense-control",
+    "deploy:firebase": "firebase deploy --only hosting:angular-expense-control"
   },
   "private": true,
   "dependencies": {
@@ -36,6 +38,7 @@
     "@types/lodash": "^4.14.149",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "http-server": "^0.12.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",

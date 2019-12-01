@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "angular-expense-control"
+    "default": "apinto-frontend-samples"
+  },
+  "targets": {
+    "apinto-frontend-samples": {
+      "hosting": {
+        "angular-expense-control": [
+          "apinto-angular-expense-control"
+        ]
+      }
+    }
   }
 }

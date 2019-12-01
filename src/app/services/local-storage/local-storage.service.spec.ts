@@ -35,42 +35,45 @@ describe('LocalStorageService', () => {
     expect(localStorageService).toBeTruthy();
   });
 
-  it('get() should return null if localStorage have not anything from label', () => {
-    const mockLocalStorage = new MockLocalStorage();
+  describe('get', () => {
+    it('should return null if localStorage have not anything from label', () => {
+      const mockLocalStorage = new MockLocalStorage();
 
-    spyOn(localStorage, 'getItem')
-      .and.callFake(mockLocalStorage.getItem.bind(mockLocalStorage));
+      spyOn(localStorage, 'getItem')
+        .and.callFake(mockLocalStorage.getItem.bind(mockLocalStorage));
 
-    const result = localStorageService.get(APP_LABEL);
+      const result = localStorageService.get<null>(APP_LABEL);
 
-    expect(result).toBeNull();
+      expect(result).toBeNull();
+    });
+
+    it('should return the data stored in local-storage to label', () => {
+      const mockLabel = 'test';
+      const mockStore = {
+        store: {test: '1'}
+      };
+      const mockLocalStorage = new MockLocalStorage();
+
+      spyOn(localStorage, 'getItem')
+        .and.callFake(mockLocalStorage.getItem.bind(mockStore));
+
+      const result = localStorageService.get<number>(mockLabel);
+
+      expect(result).toEqual(1);
+    });
   });
 
-  it('get() should return the data stored in local-storage to label', () => {
-    const mockLabel = 'test';
-    const mockStore = {
-      store: {test: '1'}
-    };
-    const mockLocalStorage = new MockLocalStorage();
+  describe('set', () => {
+    it('should save the data in local-storage to label', () => {
+      const mockLabel = 'test';
+      const mockLocalStorage = new MockLocalStorage();
 
-    spyOn(localStorage, 'getItem')
-      .and.callFake(mockLocalStorage.getItem.bind(mockStore));
+      spyOn(localStorage, 'setItem')
+        .and.callFake(mockLocalStorage.setItem.bind(mockLocalStorage));
 
-    const result = localStorageService.get(mockLabel);
+      localStorageService.set<number>(mockLabel, 1);
 
-    expect(result).toEqual(1);
+      expect(mockLocalStorage.store.test).toEqual('1');
+    });
   });
-
-  it('set() should save the data in local-storage to label', () => {
-    const mockLabel = 'test';
-    const mockLocalStorage = new MockLocalStorage();
-
-    spyOn(localStorage, 'setItem')
-      .and.callFake(mockLocalStorage.setItem.bind(mockLocalStorage));
-
-    localStorageService.set(mockLabel, 1);
-
-    expect(mockLocalStorage.store.test).toEqual('1');
-  });
-
 });

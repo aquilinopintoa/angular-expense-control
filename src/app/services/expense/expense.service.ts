@@ -6,10 +6,10 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AppState } from 'src/app/models/app-state/app-state.interface';
 
 export const APP_LABEL = 'app-state';
-export const DEFAULT_APP_STATE = {
+export const DEFAULT_APP_STATE: AppState = {
   expensesCounter: 0,
-  expenses: []
-};
+  expenses: [] as Expense[]
+ };
 
 @Injectable()
 export class ExpenseService {
@@ -20,7 +20,7 @@ export class ExpenseService {
   constructor(
     private localStorageService: LocalStorageService
   ) {
-    const appState: AppState = this.localStorageService.get(APP_LABEL) || DEFAULT_APP_STATE;
+    const appState: AppState = this.localStorageService.get<AppState | null>(APP_LABEL) || DEFAULT_APP_STATE;
 
     this.expensesCounter = appState.expensesCounter;
     this.expenses = appState.expenses;
