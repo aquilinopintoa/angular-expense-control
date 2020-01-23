@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy:coverage-report": "http-server ./coverage/angular-expense-control",
-    "deploy:firebase": "firebase deploy --only hosting:angular-expense-control"
+    "deploy:firebase": "firebase deploy --only hosting:angular-expense-control",
+    "storybook": "start-storybook"
   },
   "private": true,
   "dependencies": {
@@ -33,10 +34,13 @@
     "@angular/cli": "~9.0.0-rc.4",
     "@angular/compiler-cli": "~9.0.0-rc.4",
     "@angular/language-service": "~9.0.0-rc.4",
+    "@babel/core": "^7.8.3",
+    "@storybook/angular": "^5.3.8",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash": "^4.14.149",
     "@types/node": "^12.11.1",
+    "babel-loader": "^8.0.6",
     "codelyzer": "^5.1.2",
     "http-server": "^0.12.0",
     "jasmine-core": "~3.4.0",
