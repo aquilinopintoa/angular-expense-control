@@ -1,9 +1,9 @@
 import { ExpenseDisplayComponent } from './expense-display.component';
 import * as moment from 'moment';
-import {registerLocaleData} from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
-import * as markdown from './Readme.md';
 import { storiesOf } from '@storybook/angular';
+import * as markdown from './Readme.md';
 
 registerLocaleData(localeEs);
 
