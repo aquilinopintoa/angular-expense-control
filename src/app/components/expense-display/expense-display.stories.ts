@@ -7,16 +7,16 @@ import * as markdown from './Readme.md';
 
 registerLocaleData(localeEs);
 
-storiesOf('Expense|ExpenseDisplayComponent', module)
+storiesOf('Expense | Expense Display', module)
   .add(
-    'Simple Expense Display',
+    'Standard',
     () => ({
       component: ExpenseDisplayComponent,
       props: {
         expense: {
           amount: 100,
           date: moment().format(),
-          description: 'Test'
+          description: 'Licencia PHP Storm'
         },
       },
     }),

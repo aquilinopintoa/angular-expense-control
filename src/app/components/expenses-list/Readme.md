@@ -1,9 +1,9 @@
-#Usage expense component
+#Usage expenses list component
 
-Expense Display Component.
+Expenses List Component.
 
 ### Props
-* expense: Expense Object
+* expenses: Array of Expense Object
 
 ### Expense Object
 Attributes: 
