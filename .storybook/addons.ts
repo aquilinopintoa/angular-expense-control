@@ -1,4 +1,5 @@
 import '@storybook/addon-notes/register';
+import '@storybook/addon-viewport/register';
 import { addons } from '@storybook/addons';
 
 import { create } from '@storybook/theming/create';
