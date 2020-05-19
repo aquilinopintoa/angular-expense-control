@@ -12,7 +12,7 @@
     "deploy:coverage-report": "http-server ./coverage/angular-expense-control",
     "deploy:firebase": "firebase deploy --only hosting:angular-expense-control",
     "storybook": "start-storybook -s ./src/assets",
-    "storybook:build": "build-storybook"
+    "storybook:build": "build-storybook --output-dir .storybook/deploy/dist -s ./src/assets"
   },
   "private": true,
   "dependencies": {
